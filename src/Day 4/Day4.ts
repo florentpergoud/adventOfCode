@@ -54,7 +54,7 @@ const filterNotValidatedPassports = (passports: any[]) :any[] => passports.filte
     return false;
   }
 
-  return true;
+  return false;
 });
 
 const validPassportsInBatch = (batch:string[]) => {
@@ -68,10 +68,86 @@ const firstQuestionSolver = () => {
   console.log(`We encoutered ${validPassports.length} valid passports`);
 };
 
-// const secondQuestionSolver = () => {
+// firstQuestionSolver();
 
-// };
+// Exo 2
 
-firstQuestionSolver();
+const isHeightValid = (heightAndUnit:string) => {
+  if (heightAndUnit.includes('cm')) {
+    const heightString = heightAndUnit.slice(0, heightAndUnit.length - 2);
+    if (heightString.length < 2) {
+      return false;
+    }
+    const height = parseInt(heightString, 10);
+    if (height < 150 || height > 193) {
+      return false;
+    }
+    return true;
+  }
+  if (heightAndUnit.includes('in')) {
+    const heightString = heightAndUnit.slice(0, heightAndUnit.length - 2);
+    if (heightString.length < 2) {
+      return false;
+    }
+    const height = parseInt(heightString, 10);
+    if (height < 59 || height > 76) {
+      return false;
+    }
+    return true;
+  }
+  return false;
+};
 
-// secondQuestionSolver();
+const filterNotValidatedWithMoreRulesPassports = (passports: any[]) :any[] => passports.filter((passport) => {
+  if (Object.keys(passport).length < 7) {
+    return false;
+  }
+  // @ts-ignore
+  const doesPassportsContainsCID = Object.keys(passport).includes('cid');
+  if (Object.keys(passport).length === 7 && doesPassportsContainsCID) {
+    return false;
+  }
+
+  if (parseInt(passport.byr.value, 10) > 2002 || parseInt(passport.byr.value, 10) < 1920) {
+    return false;
+  }
+
+  if (parseInt(passport.iyr.value, 10) > 2020 || parseInt(passport.iyr.value, 10) < 2010) {
+    return false;
+  }
+
+  if (parseInt(passport.eyr.value, 10) > 2030 || parseInt(passport.eyr.value, 10) < 2020) {
+    return false;
+  }
+
+  if (!isHeightValid(passport.hgt.value)) {
+    return false;
+  }
+
+  if (!passport.hcl.value.match(/^#([0-9a-f]{6}|[0-9a-f]{3})$/)) {
+    return false;
+  }
+
+  if (!['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(passport.ecl.value)) {
+    return false;
+  }
+
+  if (!passport.pid.value.match(/^[0-9]{9}$/)) {
+    return false;
+  }
+
+  return true;
+});
+
+const extractValidPassportsFromBatch = (batch:string[]) => {
+  const passports = extractPassportsFromBatch(batch);
+  return filterNotValidatedWithMoreRulesPassports(passports);
+};
+
+const secondQuestionSolver = () => {
+  const batch = inputParser(inputFileName);
+  const validPassports = extractValidPassportsFromBatch(batch);
+  console.log(`We encoutered ${validPassports.length} valid passports`);
+};
+
+secondQuestionSolver();

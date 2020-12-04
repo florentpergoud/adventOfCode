@@ -63,7 +63,7 @@ var filterNotValidatedPassports = function (passports) { return passports.filter
     if (Object.keys(passport).length === 7 && doesPassportsContainsCID) {
         return false;
     }
-    return true;
+    return false;
 }); };
 var validPassportsInBatch = function (batch) {
     var passports = extractPassportsFromBatch(batch);
@@ -74,7 +74,72 @@ var firstQuestionSolver = function () {
     var validPassports = validPassportsInBatch(batch);
     console.log("We encoutered " + validPassports.length + " valid passports");
 };
-// const secondQuestionSolver = () => {
-// };
-firstQuestionSolver();
-// secondQuestionSolver();
+// firstQuestionSolver();
+// Exo 2
+var isHeightValid = function (heightAndUnit) {
+    if (heightAndUnit.includes('cm')) {
+        var heightString = heightAndUnit.slice(0, heightAndUnit.length - 2);
+        if (heightString.length < 2) {
+            return false;
+        }
+        var height = parseInt(heightString, 10);
+        if (height < 150 || height > 193) {
+            return false;
+        }
+        return true;
+    }
+    if (heightAndUnit.includes('in')) {
+        var heightString = heightAndUnit.slice(0, heightAndUnit.length - 2);
+        if (heightString.length < 2) {
+            return false;
+        }
+        var height = parseInt(heightString, 10);
+        if (height < 59 || height > 76) {
+            return false;
+        }
+        return true;
+    }
+    return false;
+};
+var filterNotValidatedWithMoreRulesPassports = function (passports) { return passports.filter(function (passport) {
+    if (Object.keys(passport).length < 7) {
+        return false;
+    }
+    // @ts-ignore
+    var doesPassportsContainsCID = Object.keys(passport).includes('cid');
+    if (Object.keys(passport).length === 7 && doesPassportsContainsCID) {
+        return false;
+    }
+    if (parseInt(passport.byr.value, 10) > 2002 || parseInt(passport.byr.value, 10) < 1920) {
+        return false;
+    }
+    if (parseInt(passport.iyr.value, 10) > 2020 || parseInt(passport.iyr.value, 10) < 2010) {
+        return false;
+    }
+    if (parseInt(passport.eyr.value, 10) > 2030 || parseInt(passport.eyr.value, 10) < 2020) {
+        return false;
+    }
+    if (!isHeightValid(passport.hgt.value)) {
+        return false;
+    }
+    if (!passport.hcl.value.match(/^#([0-9a-f]{6}|[0-9a-f]{3})$/)) {
+        return false;
+    }
+    if (!['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(passport.ecl.value)) {
+        return false;
+    }
+    if (!passport.pid.value.match(/^[0-9]{9}$/)) {
+        return false;
+    }
+    return true;
+}); };
+var extractValidPassportsFromBatch = function (batch) {
+    var passports = extractPassportsFromBatch(batch);
+    return filterNotValidatedWithMoreRulesPassports(passports);
+};
+var secondQuestionSolver = function () {
+    var batch = inputParser_1.default(inputFileName);
+    var validPassports = extractValidPassportsFromBatch(batch);
+    console.log("We encoutered " + validPassports.length + " valid passports");
+};
+secondQuestionSolver();

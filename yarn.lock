@@ -707,6 +707,11 @@ get-stdin@^6.0.0:
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-6.0.0.tgz#9e09bf712b360ab9225e812048f71fde9c89657b"
   integrity sha512-jp4tHawyV7+fkkSKyvjuLZswblUtz+SQKzSWnBbii16BuZksJlU1wuBYXY75r+duh/llF1ur6oNwi+2ZzjKZ7g==
 
+git-cz@^4.7.5:
+  version "4.7.5"
+  resolved "https://registry.yarnpkg.com/git-cz/-/git-cz-4.7.5.tgz#9707efabc60ebb23e8d1e61469d195bdb91c49ad"
+  integrity sha512-FBzBE2gbadDXQEIV/yq5lPZt4UTXLK1+RwsnAM6K6AA9/Wwtvr6pLgX1+g/V7h1grl9gXIlIXu7srbdGxoJPqA==
+
 glob-parent@^5.0.0, glob-parent@^5.1.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.1.tgz#b6c1ef417c4e5663ea498f1c45afac6916bbc229"

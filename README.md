@@ -4,7 +4,7 @@ The repo holding my solutions for Advent of code 2020 session
 
 ## Current resolution state 2021
 
-Florent PERGOUD - 10 :star:
+Florent PERGOUD - 14 :star:
 
 [1 :star::star:](src/2021/Day%201)
 
@@ -15,6 +15,10 @@ Florent PERGOUD - 10 :star:
 [4 :star::star:](src/2021/Day%204)
 
 [5 :star::star:](src/2021/Day%205)
+
+[6 :star::star:](src/2021/Day%206)
+
+[7 :star::star:](src/2021/Day%207)
 
 ## Resolution state 2020
 

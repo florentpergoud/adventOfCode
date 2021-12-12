@@ -26,6 +26,10 @@ Florent PERGOUD - 20 :star:
 
 [10 :star::star:](src/2021/Day%2010)
 
+[11 :star::star:](src/2021/Day%2011)
+
+[12 :star::star:](src/2021/Day%2012)
+
 ## Resolution state 2020
 
 Florent PERGOUD 12 :star:
